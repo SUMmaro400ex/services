@@ -1,7 +1,7 @@
 require 'sinatra'
 require 'pony'
 
-post '/sendEmail' do
+get '/sendEmail' do
   Pony.mail :to => params[:to_email],
             :from => params[:email],
             :subject =>  params[:subject],
@@ -14,5 +14,6 @@ post '/sendEmail' do
                 :password             => ENV['GMAIL_PASSWORD'],
                 :authentication       => :plain, 
                 :domain               => "JonRose.co" 
-              } 
+              }
+    return true 
 end

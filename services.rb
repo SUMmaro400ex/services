@@ -1,5 +1,6 @@
 require 'sinatra'
 require 'pony'
+require 'json'
 
 get '/sendEmail' do
   Pony.mail :to => params[:to_email],
@@ -15,5 +16,16 @@ get '/sendEmail' do
                 :authentication       => :plain, 
                 :domain               => "JonRose.co" 
               }
-    return true 
+    callback = params.delete('callback') # jsonp
+    json = {'response' => 'true'}.to_json
+
+    if callback
+      content_type :js
+      response = "#{callback}(#{json})" 
+    else
+      content_type :json
+      response = json
+    end
+    response
+
 end

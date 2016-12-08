@@ -2,7 +2,7 @@ require 'sinatra'
 require 'pony'
 require 'json'
 
-get '/sendEmail' do
+get '/send-email' do
   Pony.mail :to => params[:to_email],
             :from => params[:email],
             :subject =>  params[:subject],
